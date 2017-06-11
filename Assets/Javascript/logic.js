@@ -1,6 +1,3 @@
-// $(document).ready(function() {
-
-// Initialize Firebase
 var config = {
     apiKey: "AIzaSyAfaCfX9nRApCydoT9xwwp0lhJ9VLwM6Bw",
     authDomain: "train-scheduler-b4cec.firebaseapp.com",
@@ -16,7 +13,23 @@ var database = firebase.database(),
     name = "",
     station = "",
     time = "",
-    rate = "";
+    rate = "",
+    arrival = "",
+    minutesAway = "";
+
+function timeFunction(frequency, firstTime) {
+
+    var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years"),
+        currentTime = moment(),
+        diffTime = moment().diff(moment(firstTimeConverted), "minutes"),
+        tRemainder = diffTime % frequency;
+
+    minutesAway = frequency - tRemainder;
+
+    var nextTrain = moment().add(minutesAway, "minutes");
+
+    arrival = moment(nextTrain).format("hh:mm");
+}
 
 
 $("#submitButton").on("click", function(event) {
@@ -40,40 +53,17 @@ $("#submitButton").on("click", function(event) {
 
 database.ref().on("child_added", function(childSnapshot) {
 
-    // Log everything that's coming out of snapshot
-    console.log(childSnapshot.val().name);
-    console.log(childSnapshot.val().station);
-    console.log(childSnapshot.val().time);
-    console.log(childSnapshot.val().rate);
-    console.log(childSnapshot.val().dateAdded);
+    name = childSnapshot.val().name
+    station = childSnapshot.val().station
+    time = childSnapshot.val().time
+    rate = childSnapshot.val().rate
 
-    // full list of items to the well
-    $(".table").append("<tr><td>" + childSnapshot.val().name + "</td>" + "<td>" + childSnapshot.val().station + "</td>" + "<td>" + childSnapshot.val().rate + "</td>" + "<td>" + " " + "</td>" + "<td>" + " " + "</td></tr>");
+    timeFunction(rate, time);
 
+    $(".table").append("<tr><td>" + childSnapshot.val().name + "</td>" + "<td>" + childSnapshot.val().station + "</td>" + "<td>" + childSnapshot.val().rate + "</td>" + "<td>" + arrival + "</td>" + "<td>" + minutesAway + "</td></tr>");
 
-
-
-    // <div class='well'><span id='name'> " + childSnapshot.val().name +
-    //     " </span><span id='email'> " + childSnapshot.val().email +
-    //     " </span><span id='age'> " + childSnapshot.val().age +
-    //     " </span><span id='comment'> " + childSnapshot.val().comment + " </span></div>");
-
-    // Handle the errors
 }, function(errorObject) {
+
     console.log("Errors handled: " + errorObject.code);
+
 });
-
-// dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
-
-//     // Change the HTML to reflect
-//     $("#name-display").html(snapshot.val().name);
-//     $("#email-display").html(snapshot.val().email);
-//     $("#age-display").html(snapshot.val().age);
-//     $("#comment-display").html(snapshot.val().comment);
-// });
-
-
-
-
-
-// });
