@@ -1,0 +1,18 @@
+.jumbotron {
+	background-color:#f9d22a;
+	color: black;
+	text-align: center;
+}
+
+.panel {
+	border-color: #f9d22a;
+}
+
+.panel .panel-default .panel-heading {
+	background-color: #f9d22a;
+	color:white;
+}
+
+.container {
+	margin-top: 2%;
+}
