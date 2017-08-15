@@ -60,7 +60,7 @@ database.ref().on("child_added", function(childSnapshot) {
 
     timeFunction(rate, time);
 
-    $(".table").append("<tr><td>" + childSnapshot.val().name + "</td>" + "<td>" + childSnapshot.val().station + "</td>" + "<td>" + childSnapshot.val().rate + "</td>" + "<td>" + arrival + "</td>" + "<td>" + minutesAway + "</td></tr>");
+    $(".table").append("<tr><td>" + name + "</td>" + "<td>" + station + "</td>" + "<td>" + rate + "</td>" + "<td>" + arrival + "</td>" + "<td>" + minutesAway + "</td></tr>");
 
 }, function(errorObject) {
 
