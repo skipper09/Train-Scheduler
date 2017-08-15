@@ -5,9 +5,9 @@ var config = {
     projectId: "train-scheduler-b4cec",
     storageBucket: "train-scheduler-b4cec.appspot.com",
     messagingSenderId: "397302452079"
-};
+  };
 
-firebase.initializeApp(config);
+  firebase.initializeApp(config);
 
 var database = firebase.database(),
     name = "",
