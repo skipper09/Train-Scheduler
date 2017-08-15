@@ -51,7 +51,7 @@ $("#submitButton").on("click", function(event) {
     alert(name + " has been added.");
 });
 
-database.ref().on("child_added", function(childSnapshot) {
+database.ref().on("value", function(childSnapshot) {
 
     name = childSnapshot.val().name
     station = childSnapshot.val().station
